@@ -52,8 +52,7 @@ function showWebsite(){
                 "Content-Type":"application/json"
             },
             success : function(data,status,_){
-                console.log(data)
-                $("#output").html(companyTag(data))
+                output(`<a href="${data.website}">${data.website}</a>`)
             }
         })
     }
@@ -74,9 +73,6 @@ function showWebsite(){
         website:URL
     }
 */
-function companyTag(data){
-    return ""
-}
 
 /*
 Objective 3:
