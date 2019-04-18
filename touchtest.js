@@ -21,10 +21,18 @@ Objective 1:
 Login. Print the “AccessToken” and the “CompanyId” out.
 */
 function login(){
+    /*
+    mimic curl
+    curl -X POST 
+    -H 'Content-Type: application/json' 
+    -d '{"username":"admin","password":"icannottellyou"}' 
+    -v -i'https://harbulary-no-promo.herokuapp.com/login'
+    */
+    
     $.ajax({
         url : (base + "/login"),
         method : 'POST',
-        contentType : "application/json",
+        headers : {"Content-Type":"application/json"} ,
         data : {'UserName':username,'Password':password},
         success : function(data,status,_){
             console.long(status)
