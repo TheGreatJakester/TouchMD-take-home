@@ -110,6 +110,10 @@ function upload(e){
     }
     var uploadData = new FormData();
     uploadData.append("file",e.target.files[0],e.target.files[0].name)
+    if(fileId != ""){
+        output(`Looks like you have already uploaded a file with Id ${fileId}, maybe delete it first.`)
+        return
+    }
     $.ajax({
         url : `${base}/public`,
         method : 'POST',
@@ -130,3 +134,25 @@ function upload(e){
 Objective 5:
 Delete the newly uploaded image.
 */
+
+function deleteImage(){
+    if(!checkToken()){
+        return
+    }
+    if(fileId == ""){
+        output(`Nothing to delete`)
+        return
+    }
+    $.ajax({
+        url : `${base}/public/${fileId}`,
+        method : 'DELETE',
+        headers : {
+            "Authorization": "Bearer "+token,
+        },
+        success : function(data,status){
+            output(`file with Id ${fileId} was deleted`)
+            fileId = ""
+        }
+    })
+
+}
