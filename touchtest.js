@@ -18,10 +18,8 @@ function checkToken(){
     }
 }
 
-/*
-Objective 1:
-Login. Print the “AccessToken” and the “CompanyId” out.
-*/
+
+//Objective 1:
 function login(){
     $.ajax({
         url : (base + "/login"),
@@ -39,10 +37,7 @@ function login(){
     })
 }
 
-/*
-Objective 2:
-Get the company details based on the CompanyId from Objective 1. Print out the “website” of the company.
-*/
+//Objective 2:
 function showWebsite(){
     if(!checkToken()){
         return
@@ -59,27 +54,8 @@ function showWebsite(){
         }
     })
 }
-/*
-    data structure for /companies/:companyID
-    {
-        name:str,
-        username:str,
-        company{
-            bs:str,catchPhrase:str,name:str
-        },
-        address:str,
-        avitar:imgURL,
-        email:EmailAddress,
-        phone:str,
-        username:str,
-        website:URL
-    }
-*/
 
-/*
-Objective 3:
-Get the company images based on the CompanyId from Objective 1. Print out the “PublicUrl” of the image with the id of 5.
-*/
+//Objective 3:
 function getImage(){
     if(!checkToken()){
         return
@@ -99,11 +75,8 @@ function getImage(){
         }
     })
 }
-/*
-Objective 4:
-Upload a “public” .jpg image. Print out the id of the newly created image.
-*/
 
+//Objective 4:
 function upload(e){
     if(!checkToken()){
         return
@@ -111,7 +84,10 @@ function upload(e){
     var uploadData = new FormData();
     uploadData.append("file",e.target.files[0],e.target.files[0].name)
     if(fileId != ""){
-        output(`Looks like you have already uploaded a file with Id ${fileId}, maybe delete it first.`)
+        output(
+            `Looks like you have already uploaded a 
+            file with Id ${fileId}, maybe delete it first.`
+        )
         return
     }
     $.ajax({
@@ -130,11 +106,7 @@ function upload(e){
     })
 }
 
-/*
-Objective 5:
-Delete the newly uploaded image.
-*/
-
+//Objective 5:
 function deleteImage(){
     if(!checkToken()){
         return
@@ -154,5 +126,4 @@ function deleteImage(){
             fileId = ""
         }
     })
-
 }
