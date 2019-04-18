@@ -22,7 +22,7 @@ function checkToken(){
 //Objective 1:
 function login(){
     $.ajax({
-        url : (base + "/login"),
+        url : `${base}/login`,
         method : 'POST',
         headers : {"Content-Type":"application/json"} ,
         data : JSON.stringify({'UserName':username,'Password':password}),
@@ -64,7 +64,7 @@ function getImage(){
         url : `${base}/companies/${companyID}/images`,
         method : 'GET',
         headers : {
-            "Authorization": "Bearer "+token,
+            "Authorization": `Bearer ${token}`,
             "Content-Type":"application/json"
         },
         success : function(data,status,_){
@@ -94,7 +94,7 @@ function upload(e){
         url : `${base}/public`,
         method : 'POST',
         headers : {
-            "Authorization": "Bearer "+token,
+            "Authorization": `Bearer ${token}`,
         },
         data : uploadData,
         processData : false,
@@ -119,7 +119,7 @@ function deleteImage(){
         url : `${base}/public/${fileId}`,
         method : 'DELETE',
         headers : {
-            "Authorization": "Bearer "+token,
+            "Authorization": `Bearer ${token}`,
         },
         success : function(data,status){
             output(`file with Id ${fileId} was deleted`)
