@@ -2,6 +2,7 @@ base = "https://harbulary-no-promo.herokuapp.com"
 username = "admin"
 password = "icannottellyou"
 token = ""
+companyID = ""
 
 function output(text){
     $("#output").html(text)
@@ -21,26 +22,18 @@ Objective 1:
 Login. Print the “AccessToken” and the “CompanyId” out.
 */
 function login(){
-    /*
-    mimic curl
-    curl -X POST 
-    -H 'Content-Type: application/json' 
-    -d '{"username":"admin","password":"icannottellyou"}' 
-    -v -i'https://harbulary-no-promo.herokuapp.com/login'
-    */
-    
     $.ajax({
         url : (base + "/login"),
         method : 'POST',
         headers : {"Content-Type":"application/json"} ,
         data : JSON.stringify({'UserName':username,'Password':password}),
         success : function(data,status,_){
-            console.log(status)
-            console.log(data)
+            token = data.AccessToken
+            companyID = data.CompanyId
+            output(JSON.stringify(data))
         },
         error : function(data,status,_){
-            console.log(status)
-            console.log(data)
+            output("something isn't right...")
         }
     })
 }
@@ -49,6 +42,42 @@ function login(){
 Objective 2:
 Get the company details based on the CompanyId from Objective 1. Print out the “website” of the company.
 */
+function showWebsite(){
+    if(checkToken()){
+        $.ajax({
+            url : base + "/companies/"+companyID,
+            method : 'GET',
+            headers : {
+                "Authorization": "Bearer "+token,
+                "Content-Type":"application/json"
+            },
+            success : function(data,status,_){
+                console.log(data)
+                $("#output").html(companyTag(data))
+            }
+        })
+    }
+}
+/*
+    data structure
+    {
+        name:str,
+        username:str,
+        company{
+            bs:str,catchPhrase:str,name:str
+        },
+        address:str,
+        avitar:imgURL,
+        email:EmailAddress,
+        phone:str,
+        username:str,
+        website:URL
+    }
+*/
+function companyTag(data){
+    return ""
+}
+
 /*
 Objective 3:
 Get the company images based on the CompanyId from Objective 1. Print out the “PublicUrl” of the image with the id of 5.
