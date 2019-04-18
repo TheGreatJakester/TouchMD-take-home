@@ -3,6 +3,7 @@ username = "admin"
 password = "icannottellyou"
 token = ""
 companyID = ""
+fileId = ""
 
 function output(text){
     $("#output").html(text)
@@ -98,12 +99,33 @@ function getImage(){
         }
     })
 }
-
-
 /*
 Objective 4:
 Upload a “public” .jpg image. Print out the id of the newly created image.
 */
+
+function upload(e){
+    if(!checkToken()){
+        return
+    }
+    var uploadData = new FormData();
+    uploadData.append("file",e.target.files[0],e.target.files[0].name)
+    $.ajax({
+        url : `${base}/public`,
+        method : 'POST',
+        headers : {
+            "Authorization": "Bearer "+token,
+        },
+        data : uploadData,
+        processData : false,
+        success : function(data,status){
+            console.log(data)
+            output(data.Id)
+            fileId = data.Id
+        }
+    })
+}
+
 /*
 Objective 5:
 Delete the newly uploaded image.
