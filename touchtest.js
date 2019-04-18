@@ -33,9 +33,13 @@ function login(){
         url : (base + "/login"),
         method : 'POST',
         headers : {"Content-Type":"application/json"} ,
-        data : {'UserName':username,'Password':password},
+        data : JSON.stringify({'UserName':username,'Password':password}),
         success : function(data,status,_){
-            console.long(status)
+            console.log(status)
+            console.log(data)
+        },
+        error : function(data,status,_){
+            console.log(status)
             console.log(data)
         }
     })
