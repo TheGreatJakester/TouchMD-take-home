@@ -43,22 +43,23 @@ Objective 2:
 Get the company details based on the CompanyId from Objective 1. Print out the “website” of the company.
 */
 function showWebsite(){
-    if(checkToken()){
-        $.ajax({
-            url : base + "/companies/"+companyID,
-            method : 'GET',
-            headers : {
-                "Authorization": "Bearer "+token,
-                "Content-Type":"application/json"
-            },
-            success : function(data,status,_){
-                output(`<a href="${data.website}">${data.website}</a>`)
-            }
-        })
+    if(!checkToken()){
+        return
     }
+    $.ajax({
+        url : `${base}/companies/${companyID}`,
+        method : 'GET',
+        headers : {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type":"application/json"
+        },
+        success : function(data,status,_){
+            output(`<a href="${data.website}">${data.website}</a>`)
+        }
+    })
 }
 /*
-    data structure
+    data structure for /companies/:companyID
     {
         name:str,
         username:str,
@@ -78,6 +79,24 @@ function showWebsite(){
 Objective 3:
 Get the company images based on the CompanyId from Objective 1. Print out the “PublicUrl” of the image with the id of 5.
 */
+function getImages(){
+    if(!checkToken()){
+        return
+    }
+    $.ajax({
+        url : base + "/companies/"+companyID,
+        method : 'GET',
+        headers : {
+            "Authorization": "Bearer "+token,
+            "Content-Type":"application/json"
+        },
+        success : function(data,status,_){
+            output(`<a href="${data.website}">${data.website}</a>`)
+        }
+    })
+}
+
+
 /*
 Objective 4:
 Upload a “public” .jpg image. Print out the id of the newly created image.
