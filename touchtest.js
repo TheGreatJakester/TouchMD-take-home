@@ -1,17 +1,28 @@
+base = "https://harbulary-no-promo.herokuapp.com"
+username = "admin"
+password = "icannottellyou"
+token = ""
+
 function output(text){
     $("#output").html(text)
 }
 
+function checkToken(){
+    if(token == ""){
+        output("We are missing a token, maybe try logging in first")
+        return false
+    } else {
+        return true
+    }
+}
 
 /*
 Objective 1:
 Login. Print the “AccessToken” and the “CompanyId” out.
 */
-username = "admin"
-password = "icannottellyou"
 function login(){
     $.ajax({
-        url : "https://harbulary-no-promo.herokuapp.com/login",
+        url : (base + "/login"),
         method : 'POST',
         contentType : "application/json",
         data : {'UserName':username,'Password':password},
