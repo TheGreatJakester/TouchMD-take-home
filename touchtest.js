@@ -1,6 +1,6 @@
 base = "https://harbulary-no-promo.herokuapp.com"
 username = "admin"
-password = "icannottellyou"
+password = "icannottellyou" //Make sure to replace the password with the real thing before running.
 token = ""
 companyID = ""
 fileId = ""
